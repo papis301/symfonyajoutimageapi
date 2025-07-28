@@ -14,10 +14,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 #[Route('/api/images')]
 class ImageController extends AbstractController
 {
-    #[Route('', name: 'api_images_list', methods: ['GET'])]
+   #[Route('', name: 'api_images_list', methods: ['GET'])]
     public function list(ImageRepository $repo): JsonResponse
     {
-        $images = $repo->findAll();
+        $images = $repo->findAll(); // <= ici on va chercher dans la BDD
+
         $data = array_map(fn($img) => [
             'id' => $img->getId(),
             'url' => '/uploads/images/' . $img->getFilename(),
@@ -49,4 +50,14 @@ class ImageController extends AbstractController
 
         return $this->json(['success' => true, 'filename' => $newFilename]);
     }
+
+    #[Route('/gallery', name: 'image_gallery')]
+        public function gallery(ImageRepository $repo): Response
+        {
+            $images = $repo->findAll();
+
+            return $this->render('gallery.html.twig', [
+                'images' => $images,
+            ]);
+        }
 }

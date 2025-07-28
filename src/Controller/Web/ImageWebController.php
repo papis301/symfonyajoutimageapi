@@ -3,6 +3,7 @@
 namespace App\Controller\Web;
 
 use App\Entity\Image;
+use App\Repository\ImageRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -40,4 +41,14 @@ class ImageWebController extends AbstractController
 
         return $this->redirectToRoute('image_upload_form');
     }
+
+    #[Route('/gallery', name: 'image_gallery')]
+        public function gallery(ImageRepository $repo): Response
+        {
+            $images = $repo->findAll();
+
+            return $this->render('gallery.html.twig', [
+                'images' => $images,
+            ]);
+        }
 }

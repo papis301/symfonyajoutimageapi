@@ -4,8 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity]
-class Image
+#[ORM\Entity(repositoryClass: 'App\\Repository\\ImageRepository')]class Image
 {
     #[ORM\Id, ORM\GeneratedValue, ORM\Column(type: 'integer')]
     private ?int $id = null;
