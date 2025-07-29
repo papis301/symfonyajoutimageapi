@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/api')]
-class ConnexionLogController extends AbstractController
+class ConnexionLogControllerApi extends AbstractController
 {
     #[Route('/log-connexion', name: 'log_connexion', methods: ['POST'])]
     public function logConnexion(Request $request, EntityManagerInterface $em): JsonResponse
