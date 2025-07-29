@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New ConnexionLog{% endblock %}
+
+{% block body %}
+    <h1>Create new ConnexionLog</h1>
+
+    {{ include('connexion_log/_form.html.twig') }}
+
+    <a href="{{ path('app_connexion_log_index') }}">back to list</a>
+{% endblock %}

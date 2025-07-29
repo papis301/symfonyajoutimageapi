@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit ConnexionLog{% endblock %}
+
+{% block body %}
+    <h1>Edit ConnexionLog</h1>
+
+    {{ include('connexion_log/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_connexion_log_index') }}">back to list</a>
+
+    {{ include('connexion_log/_delete_form.html.twig') }}
+{% endblock %}

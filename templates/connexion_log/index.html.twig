@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ConnexionLog index{% endblock %}
+
+{% block body %}
+    <h1>ConnexionLog index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>LoggedAt</th>
+                <th>UserIdentifier</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for connexion_log in connexion_logs %}
+            <tr>
+                <td>{{ connexion_log.id }}</td>
+                <td>{{ connexion_log.loggedAt ? connexion_log.loggedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ connexion_log.userIdentifier }}</td>
+                <td>
+                    <a href="{{ path('app_connexion_log_show', {'id': connexion_log.id}) }}">show</a>
+                    <a href="{{ path('app_connexion_log_edit', {'id': connexion_log.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_connexion_log_new') }}">Create new</a>
+{% endblock %}
