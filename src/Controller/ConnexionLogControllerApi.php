@@ -13,7 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 #[Route('/api')]
 class ConnexionLogControllerApi extends AbstractController
 {
-    #[Route('/log-connexion', name: 'log_connexion', methods: ['POST'])]
+    #[Route('/log-connexion', name: 'log_connexion', methods: ['GET','POST'])]
     public function logConnexion(Request $request, EntityManagerInterface $em): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
