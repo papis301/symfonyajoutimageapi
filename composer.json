@@ -19,7 +19,8 @@
     "doctrine/doctrine-migrations-bundle": "^3.4",
     "doctrine/orm": "^2.20",
     "symfony/http-kernel": "^6.4",
-    "symfony/mime": "^6.4"
+    "symfony/mime": "^6.4",
+    "symfony/apache-pack": "*"
   },
   "require-dev": {
     "symfony/debug-bundle": "^6.3"
