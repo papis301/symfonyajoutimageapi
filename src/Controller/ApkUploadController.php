@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class ApkUploadController extends AbstractController
 {
@@ -52,6 +53,31 @@ class ApkUploadController extends AbstractController
 
         return $this->render('apk_upload/upload.html.twig', [
             'form' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/api/apks', name: 'apk_list')]
+    public function listApks(): JsonResponse
+    {
+        $apkDir = __DIR__ . '/../../public';
+        $files = glob($apkDir . '/*.apk');
+
+        $versions = [];
+
+        foreach ($files as $file) {
+            $basename = basename($file);
+            if (preg_match('/([\d.]+)\.apk$/', $basename, $matches)) {
+                $versions[] = [
+                    'filename' => $basename,
+                    'version' => $matches[1],
+                    'url' => '/'.$basename
+                ];
+            }
+        }
+
+        return new JsonResponse([
+            'count' => count($versions),
+            'apks' => $versions,
         ]);
     }
 }
