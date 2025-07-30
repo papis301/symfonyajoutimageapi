@@ -9,6 +9,8 @@
 
     {{ form_start(form, {'attr': {'enctype': 'multipart/form-data'}}) }}
     {{ form_row(form.apkFile) }}
+    
+    {{ form_row(form.version) }}
     <button class="btn">Uploader</button>
     {{ form_end(form) }}
 

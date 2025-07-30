@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class ApkUploadController extends AbstractController
 {
@@ -21,6 +22,7 @@ class ApkUploadController extends AbstractController
         if ($form->isSubmitted()) {
             if ($form->isValid()) {
                 $apkFile = $form->get('apkFile')->getData();
+                $version = $form->get('version')->getData();
                 if (!$apkFile) {
                         dump('Fichier non reçu');
                         dd($request->files->all());
@@ -29,7 +31,9 @@ class ApkUploadController extends AbstractController
 
                 if ($apkFile) {
                     $destination = $this->getParameter('kernel.project_dir') . '/public';
-                    $apkFile->move($destination, 'app-latest.apk');
+                    $filename = "app-$version.apk";
+                    $apkFile->move($destination, $filename);
+                    //$apkFile->move($destination, 'app-latest.apk');
 
                     $this->addFlash('success', 'Fichier APK uploadé avec succès !');
                     return $this->redirectToRoute('upload_apk');
