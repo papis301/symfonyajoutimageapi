@@ -31,9 +31,14 @@ class ApkUploadController extends AbstractController
 
                 if ($apkFile) {
                     $destination = $this->getParameter('kernel.project_dir') . '/public';
-                    $filename = "app-$version.apk";
-                    $apkFile->move($destination, $filename);
-                    //$apkFile->move($destination, 'app-latest.apk');
+                    $filenameVersioned = "app-$version.apk";
+        $filenameLatest = "app-latest.apk";
+
+        // Déplacement principal avec le nom versionné
+        $apkFile->move($destination, $filenameVersioned);
+
+        // Copie du fichier sous un autre nom
+        copy("$destination/$filenameVersioned", "$destination/$filenameLatest");
 
                     $this->addFlash('success', 'Fichier APK uploadé avec succès !');
                     return $this->redirectToRoute('upload_apk');
