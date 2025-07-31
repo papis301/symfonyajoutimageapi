@@ -33,13 +33,13 @@ class ApkUploadController extends AbstractController
                 if ($apkFile) {
                     $destination = $this->getParameter('kernel.project_dir') . '/public';
                     $filenameVersioned = "app-$version.apk";
-        $filenameLatest = "app-latest.apk";
+       // $filenameLatest = "app-latest.apk";
 
         // Déplacement principal avec le nom versionné
         $apkFile->move($destination, $filenameVersioned);
 
         // Copie du fichier sous un autre nom
-        copy("$destination/$filenameVersioned", "$destination/$filenameLatest");
+        //copy("$destination/$filenameVersioned", "$destination/$filenameLatest");
 
                     $this->addFlash('success', 'Fichier APK uploadé avec succès !');
                     return $this->redirectToRoute('upload_apk');
@@ -66,7 +66,7 @@ class ApkUploadController extends AbstractController
 
         foreach ($files as $file) {
             $basename = basename($file);
-            if (preg_match('/([\d.]+)\.apk$/', $basename, $matches)) {
+            if (preg_match('/([\d.]+)\.apk$/', $basename, $matches) || preg_match('/app-([\d.]+)\.apk$/', $basename, $matches)) {
                 $versions[] = [
                     'filename' => $basename,
                     'version' => $matches[1],
